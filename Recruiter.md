@@ -1,7 +1,3 @@
-Here’s a **complete recruiter-side documentation in Markdown (without emojis)** for your placement portal:
-
----
-
 # Recruiter Portal – Documentation
 
 ## Overview
