@@ -1,5 +1,4 @@
-# Recruiter Portal – Documentation
-
+# HireHUB – Recruiter Side Documentation
 ## Overview
 
 The recruiter portal is designed to provide companies and recruiters with an easy-to-use platform for managing placement drives, posting jobs, shortlisting candidates, and tracking hiring progress within the college ecosystem.
