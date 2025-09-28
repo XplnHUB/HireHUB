@@ -148,4 +148,94 @@ The portal is designed to simplify campus placements by auto-creating profiles, 
 - Notifications System → Email (SMTP) + In-app  
 
 ---
+
 # DATABASE SCHEMA
+
+```mermaid
+erDiagram
+
+    STUDENT {
+        int student_id PK
+        string name
+        string email
+        string password_hash
+        string branch
+        int year
+        float cgpa
+        string resume_url
+        string interest_areas
+        datetime created_at
+    }
+
+    SKILL {
+        int skill_id PK
+        string name
+    }
+
+    STUDENT_SKILL {
+        int student_id FK
+        int skill_id FK
+    }
+
+    CODING_PROFILE {
+        int profile_id PK
+        int student_id FK
+        string platform_name
+        string username
+        string profile_url
+        int rating
+        int problems_solved
+    }
+
+    JOB {
+        int job_id PK
+        string company_name
+        string role
+        string location
+        float ctc
+        string eligibility
+        string description
+        datetime deadline
+    }
+
+    APPLICATION {
+        int application_id PK
+        int student_id FK
+        int job_id FK
+        string status
+        datetime applied_at
+    }
+
+    INTERVIEW {
+        int interview_id PK
+        int application_id FK
+        datetime interview_date
+        string mode
+        string location_or_link
+        string status
+    }
+
+    RESOURCE {
+        int resource_id PK
+        string title
+        string type
+        string link
+    }
+
+    NOTIFICATION {
+        int notification_id PK
+        int student_id FK
+        string message
+        boolean is_read
+        datetime created_at
+    }
+
+    STUDENT ||--o{ STUDENT_SKILL : has
+    SKILL ||--o{ STUDENT_SKILL : assigned
+
+    STUDENT ||--o{ CODING_PROFILE : owns
+    STUDENT ||--o{ APPLICATION : submits
+    JOB ||--o{ APPLICATION : receives
+
+    APPLICATION ||--o{ INTERVIEW : scheduled
+    STUDENT ||--o{ NOTIFICATION : receives
