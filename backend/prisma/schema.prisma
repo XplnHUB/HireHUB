@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -8,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// ---------------- Models ----------------
+
 
 model Student {
   id             String           @id @map("_id") @default(auto()) @db.ObjectId
@@ -19,7 +18,7 @@ model Student {
   year           Int?
   cgpa           Float?
   resumeUrl      String?
-  interestAreas  String?
+  interestAreas  String[]
   createdAt      DateTime         @default(now())
   skills         StudentSkill[]
   codingProfiles CodingProfile[]
@@ -52,7 +51,7 @@ model Job {
   applicationDeadline DateTime?
   status              String?       @default("open")
   applications        Application[]
-  interviews          Interview[]   @relation("JobInterviews") // Relation name
+  interviews          Interview[]   @relation("JobInterviews")
 }
 
 model Application {
