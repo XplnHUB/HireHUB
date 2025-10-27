@@ -228,6 +228,12 @@ To contribute:
 - User Auth : Arpit Sarang
 
 ---
+# Job Done
+- Basic Structure Ready
+- Database Planned properly
+- Working on Routes
+- Auth routes on progress
+---
 
 ## License
 
