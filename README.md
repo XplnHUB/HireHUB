@@ -220,6 +220,14 @@ To contribute:
 5. Open a pull request
 
 ---
+# Work Planned 
+
+- Database : Suraj Kulkarni
+- Backend Student Routes : Ansh Sharma 
+- Backend Company Routes : Sunny Singh
+- User Auth : Arpit Sarang
+
+---
 
 ## License
 
