@@ -20,7 +20,7 @@ model Student {
   resumeUrl              String?
   interestAreas          String[]
   createdAt              DateTime               @default(now())
-  updatedAt              DateTime               @default(now()) @updatedAt
+  updatedAt              DateTime?              @default(now()) @updatedAt
   emailVerified          Boolean                @default(false)
   emailVerificationToken String?
   emailVerificationExpire DateTime?
@@ -50,7 +50,7 @@ model Recruiter {
   verifiedBy             String?   @db.ObjectId
   verificationNotes      String?
   createdAt              DateTime  @default(now())
-  updatedAt              DateTime  @default(now()) @updatedAt
+  updatedAt              DateTime?  @default(now()) @updatedAt
   emailVerified          Boolean   @default(false)
   emailVerificationToken String?
   emailVerificationExpire DateTime?
@@ -139,7 +139,7 @@ model ResourceCategory {
   description String?
   resources   Resource[]
   createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @default(now()) @updatedAt
+  updatedAt   DateTime?   @default(now()) @updatedAt
 }
 
 model Resource {
@@ -157,7 +157,7 @@ model Resource {
   accessLevel String           @default("public") 
   tags        String[]
   createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @default(now()) @updatedAt
+  updatedAt   DateTime?         @default(now()) @updatedAt
   accesses    ResourceAccess[]
 }
 
@@ -190,7 +190,7 @@ model NotificationPreference {
   interviewReminders    Boolean  @default(true)
   jobRecommendations    Boolean  @default(true)
   platformAnnouncements Boolean  @default(true)
-  updatedAt             DateTime @default(now()) @updatedAt
+  updatedAt             DateTime? @default(now()) @updatedAt
 }
 
 model CalendarIntegration {
@@ -201,7 +201,7 @@ model CalendarIntegration {
   refreshToken String
   expiryDate   DateTime
   createdAt    DateTime @default(now())
-  updatedAt    DateTime @default(now()) @updatedAt
+  updatedAt    DateTime? @default(now()) @updatedAt
 }
 
 model Admin {
@@ -211,7 +211,7 @@ model Admin {
   passwordHash           String
   role                   String    @default("admin")
   createdAt              DateTime  @default(now())
-  updatedAt              DateTime  @default(now()) @updatedAt
+  updatedAt              DateTime?  @default(now()) @updatedAt
   emailVerified          Boolean   @default(false)
   emailVerificationToken String?
   emailVerificationExpire DateTime?
@@ -233,5 +233,5 @@ model InterviewAssignment {
   status         String    @default("pending")
   feedback       String?
   createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @default(now()) @updatedAt
+  updatedAt      DateTime?  @default(now()) @updatedAt
 }
