@@ -3,11 +3,7 @@ import { v2 as cloudinary } from 'cloudinary';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
 import dotenv from 'dotenv';
 import path from 'path';
-
-
 dotenv.config();
-
-
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -37,8 +33,6 @@ const resourceStorage = new CloudinaryStorage({
     resource_type: 'auto'
   }
 });
-
-
 const uploadResume = multer({ 
   storage: resumeStorage,
   limits: { fileSize: 5 * 1024 * 1024 }, 
@@ -53,8 +47,6 @@ const uploadResume = multer({
     }
   }
 });
-
-
 const uploadImage = multer({ 
   storage: imageStorage,
   limits: { fileSize: 2 * 1024 * 1024 }, 
@@ -69,8 +61,6 @@ const uploadImage = multer({
     }
   }
 });
-
-
 const uploadResource = multer({
   storage: resourceStorage,
   limits: { fileSize: 20 * 1024 * 1024 }, 
@@ -84,8 +74,6 @@ const uploadResource = multer({
     }
   }
 });
-
-
 const deleteFile = async (publicId, resourceType = 'image') => {
   try {
     const result = await cloudinary.uploader.destroy(publicId, { resource_type: resourceType });
