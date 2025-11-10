@@ -1,26 +1,58 @@
 {
-  "name": "backend",
+  "name": "placement-portal-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "Backend server for Placement Portal. Handles student profiles, recruiter job postings, applications, interviews, and notifications.",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "build": "npm install && npx prisma generate",
+    "postinstall": "npx prisma generate",
+    "test": "echo \"No tests specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "type": "module",
+  "keywords": [
+    "placement",
+    "portal",
+    "backend",
+    "nodejs",
+    "express",
+    "mongodb",
+    "student",
+    "recruiter",
+    "job",
+    "applications"
+  ],
+  "author": "xplnhub",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "@prisma/client": "^6.16.2",
-    "bcryptjs": "^3.0.2",
+    "axios": "^1.13.0",
+    "bcrypt": "^6.0.0",
+    "cheerio": "^1.1.2",
+    "cloudinary": "^1.41.3",
     "cors": "^2.8.5",
-    "dotenv": "^17.2.2",
-    "express": "^5.1.0",
-    "joi": "^18.0.1",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^8.2.0",
+    "express-validator": "^7.3.0",
+    "google-auth-library": "^10.4.2",
+    "googleapis": "^164.1.0",
+    "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
-    "morgan": "^1.10.1"
+    "leetcode-query": "^2.0.1",
+    "mongodb": "^6.20.0",
+    "multer": "^2.0.2",
+    "multer-storage-cloudinary": "^4.0.0",
+    "nodemailer": "^7.0.10",
+    "xss-clean": "^0.1.4"
   },
   "devDependencies": {
     "nodemon": "^3.1.10",
     "prisma": "^6.16.2"
+  },
+  "engines": {
+    "node": ">=18 <23"
   }
 }
