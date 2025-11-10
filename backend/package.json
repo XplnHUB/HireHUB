@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Backend server for Placement Portal. Handles student profiles, recruiter job postings, applications, interviews, and notifications.",
   "main": "src/index.js",
-  "scripts": {
-  "start": "node index.js",
-  "dev": "nodemon index.js",
+"scripts": {
+  "start": "node src/index.js",
+  "dev": "nodemon src/index.js",
   "build": "npm install && npx prisma generate",
   "postinstall": "npx prisma generate",
   "test": "echo \"No tests specified\" && exit 1"
