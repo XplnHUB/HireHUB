@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Student {
-  id                     String                 @id @default(uuid())
+  id                     String                 @id @default(auto()) @map("_id") @db.ObjectId
   name                   String
   email                  String                 @unique
   passwordHash           String
@@ -43,7 +43,7 @@ model Student {
 }
 
 model Recruiter {
-  id                     String    @id @default(uuid())
+  id                     String    @id @default(auto()) @map("_id") @db.ObjectId
   name                   String
   email                  String    @unique
   passwordHash           String
@@ -70,9 +70,9 @@ model Recruiter {
 }
 
 model Job {
-  id                  String        @id @default(uuid())
+  id                  String        @id @default(auto()) @map("_id") @db.ObjectId
   recruiter           Recruiter     @relation(fields: [recruiterId], references: [id])
-  recruiterId         String
+  recruiterId         String        @db.ObjectId
   title               String
   description         String
   eligibility         String?
@@ -88,11 +88,11 @@ model Job {
 }
 
 model Application {
-  id          String       @id @default(uuid())
+  id          String       @id @default(auto()) @map("_id") @db.ObjectId
   job         Job          @relation(fields: [jobId], references: [id])
-  jobId       String
+  jobId       String       @db.ObjectId
   student     Student      @relation(fields: [studentId], references: [id])
-  studentId   String
+  studentId   String       @db.ObjectId
   status      String       @default("applied")
   appliedAt   DateTime     @default(now())
   createdAt   DateTime?    @default(now())
@@ -100,11 +100,11 @@ model Application {
 }
 
 model Interview {
-  id                String               @id @default(uuid())
+  id                String               @id @default(auto()) @map("_id") @db.ObjectId
   application       Application          @relation(fields: [applicationId], references: [id])
-  applicationId     String
+  applicationId     String               @db.ObjectId
   job               Job                  @relation("JobInterviews", fields: [jobId], references: [id])
-  jobId             String
+  jobId             String               @db.ObjectId
   interviewDate     DateTime
   mode              String?
   locationOrLink    String?
@@ -120,23 +120,23 @@ model Interview {
 }
 
 model Skill {
-  id      String        @id @default(uuid())
+  id      String        @id @default(auto()) @map("_id") @db.ObjectId
   name    String
   students StudentSkill[]
 }
 
 model StudentSkill {
-  id        String   @id @default(uuid())
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   student   Student  @relation(fields: [studentId], references: [id])
-  studentId String
+  studentId String   @db.ObjectId
   skill     Skill    @relation(fields: [skillId], references: [id])
-  skillId   String
+  skillId   String   @db.ObjectId
 }
 
 model CodingProfile {
-  id             String   @id @default(uuid())
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
   student        Student  @relation(fields: [studentId], references: [id])
-  studentId      String
+  studentId      String   @db.ObjectId
   platformName   String
   username       String
   profileUrl     String?
@@ -147,7 +147,7 @@ model CodingProfile {
 }
 
 model ResourceCategory {
-  id          String     @id @default(uuid())
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
   name        String     @unique
   description String?
   resources   Resource[]
@@ -156,7 +156,7 @@ model ResourceCategory {
 }
 
 model Resource {
-  id          String           @id @default(uuid())
+  id          String           @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   description String?
   type        String          
@@ -165,7 +165,7 @@ model Resource {
   thumbnailUrl String?
   fileSize    Int?           
   category    ResourceCategory @relation(fields: [categoryId], references: [id])
-  categoryId  String           
+  categoryId  String           @db.ObjectId
   createdBy   String?           
   accessLevel String           @default("public") 
   tags        String[]
@@ -175,9 +175,9 @@ model Resource {
 }
 
 model ResourceAccess {
-  id         String   @id @default(uuid())
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
   resource   Resource @relation(fields: [resourceId], references: [id])
-  resourceId String   
+  resourceId String   @db.ObjectId
   userId     String   
   userType   String 
   accessedAt DateTime @default(now())
@@ -186,18 +186,18 @@ model ResourceAccess {
 }
 
 model Notification {
-  id        String   @id @default(uuid())
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   student   Student  @relation(fields: [studentId], references: [id])
-  studentId String
+  studentId String   @db.ObjectId
   message   String
   isRead    Boolean  @default(false)
   createdAt DateTime @default(now())
 }
 
 model NotificationPreference {
-  id                    String   @id @default(uuid())
+  id                    String   @id @default(auto()) @map("_id") @db.ObjectId
   student               Student  @relation(fields: [studentId], references: [id])
-  studentId             String   @unique
+  studentId             String   @unique @db.ObjectId
   email                 Boolean  @default(true)
   applicationUpdates    Boolean  @default(true)
   interviewReminders    Boolean  @default(true)
@@ -207,9 +207,9 @@ model NotificationPreference {
 }
 
 model CalendarIntegration {
-  id           String   @id @default(uuid())
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
   student      Student  @relation(fields: [studentId], references: [id])
-  studentId    String   @unique
+  studentId    String   @unique @db.ObjectId
   accessToken  String
   refreshToken String
   expiryDate   DateTime
@@ -218,7 +218,7 @@ model CalendarIntegration {
 }
 
 model Admin {
-  id                     String    @id @default(uuid())
+  id                     String    @id @default(auto()) @map("_id") @db.ObjectId
   name                   String
   email                  String    @unique
   passwordHash           String
@@ -234,9 +234,9 @@ model Admin {
 }
 
 model InterviewAssignment {
-  id             String    @id @default(uuid())
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
   interview      Interview @relation(fields: [interviewId], references: [id])
-  interviewId    String
+  interviewId    String    @db.ObjectId
   title          String
   description    String?
   fileUrl        String?
