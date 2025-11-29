@@ -1,11 +1,16 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
+
 export const createApplication = async (req, res) => {
   try {
-    const { studentId, jobId, status } = req.body;
+    const { jobId } = req.body;
+    const studentId = req.user.id; // Get from authenticated user
     const application = await prisma.application.create({
-      data: { studentId, jobId, status },
+      data: {
+        student: { connect: { id: studentId } },
+        job: { connect: { id: jobId } }
+      },
     });
     res.status(201).json(application);
   } catch (error) {
@@ -13,6 +18,7 @@ export const createApplication = async (req, res) => {
     res.status(500).json({ message: "Failed to create application", error: error.message });
   }
 };
+
 
 export const getAllApplications = async (req, res) => {
   try {
@@ -25,6 +31,7 @@ export const getAllApplications = async (req, res) => {
     res.status(500).json({ message: "Failed to fetch applications", error: error.message });
   }
 };
+
 
 export const getApplicationById = async (req, res) => {
   try {
@@ -41,6 +48,7 @@ export const getApplicationById = async (req, res) => {
   }
 };
 
+
 export const updateApplication = async (req, res) => {
   try {
     const { id } = req.params;
@@ -55,6 +63,51 @@ export const updateApplication = async (req, res) => {
   }
 };
 
+
+
+export const updateApplicationStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    // Get the application with job details
+    const application = await prisma.application.findUnique({
+      where: { id },
+      include: { job: true }
+    });
+
+    if (!application) {
+      return res.status(404).json({ message: "Application not found" });
+    }
+
+    // Update application status
+    const updatedApplication = await prisma.application.update({
+      where: { id },
+      data: { status },
+    });
+
+    // If status is 'hired', decrease job openings
+    if (status.toLowerCase() === 'hired' && application.job.openings > 0) {
+      const updatedJob = await prisma.job.update({
+        where: { id: application.jobId },
+        data: { openings: { decrement: 1 } }
+      });
+
+      // If openings reach 0, automatically close the job
+      if (updatedJob.openings === 0) {
+        await prisma.job.update({
+          where: { id: application.jobId },
+          data: { status: 'closed' }
+        });
+      }
+    }
+
+    res.json(updatedApplication);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to update application status", error: error.message });
+  }
+};
 export const deleteApplication = async (req, res) => {
   try {
     const { id } = req.params;

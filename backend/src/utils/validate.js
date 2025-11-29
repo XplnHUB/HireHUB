@@ -5,7 +5,6 @@ export const validateId = (req, res, next) => {
   }
   next();
 };
-
 export const validateStudentData = (req, res, next) => {
   const { name, email, passwordHash } = req.body;
   if (!name || !email || !passwordHash) {
@@ -13,7 +12,6 @@ export const validateStudentData = (req, res, next) => {
   }
   next();
 };
-
 export const validateRecruiterData = (req, res, next) => {
   const { name, email, passwordHash, companyName } = req.body;
   if (!name || !email || !passwordHash || !companyName) {
@@ -21,7 +19,6 @@ export const validateRecruiterData = (req, res, next) => {
   }
   next();
 };
-
 export const validateJobData = (req, res, next) => {
   const { recruiterId, title, description } = req.body;
   if (!recruiterId || !title || !description) {
@@ -29,7 +26,6 @@ export const validateJobData = (req, res, next) => {
   }
   next();
 };
-
 export const validateApplicationData = (req, res, next) => {
   const { studentId, jobId } = req.body;
   if (!studentId || !jobId) {
@@ -37,7 +33,6 @@ export const validateApplicationData = (req, res, next) => {
   }
   next();
 };
-
 export const validateInterviewData = (req, res, next) => {
   const { applicationId, interviewDate } = req.body;
   if (!applicationId || !interviewDate) {
@@ -45,7 +40,6 @@ export const validateInterviewData = (req, res, next) => {
   }
   next();
 };
-
 export const validateSkillData = (req, res, next) => {
   const { name } = req.body;
   if (!name) {
@@ -53,7 +47,6 @@ export const validateSkillData = (req, res, next) => {
   }
   next();
 };
-
 export const validateCodingProfileData = (req, res, next) => {
   const { studentId, platformName, username } = req.body;
   if (!studentId || !platformName || !username) {
@@ -61,7 +54,6 @@ export const validateCodingProfileData = (req, res, next) => {
   }
   next();
 };
-
 export const validateNotificationData = (req, res, next) => {
   const { studentId, message } = req.body;
   if (!studentId || !message) {

@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
-
 export const createInterview = async (req, res) => {
   try {
     const { applicationId, jobId, interviewDate, mode, locationOrLink, status, feedback } = req.body;
@@ -13,7 +12,6 @@ export const createInterview = async (req, res) => {
     res.status(500).json({ message: "Failed to schedule interview", error: error.message });
   }
 };
-
 export const getAllInterviews = async (req, res) => {
   try {
     const interviews = await prisma.interview.findMany({
@@ -25,7 +23,6 @@ export const getAllInterviews = async (req, res) => {
     res.status(500).json({ message: "Failed to fetch interviews", error: error.message });
   }
 };
-
 export const getInterviewById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -40,7 +37,6 @@ export const getInterviewById = async (req, res) => {
     res.status(500).json({ message: "Failed to fetch interview", error: error.message });
   }
 };
-
 export const updateInterview = async (req, res) => {
   try {
     const { id } = req.params;
@@ -54,7 +50,6 @@ export const updateInterview = async (req, res) => {
     res.status(500).json({ message: "Failed to update interview", error: error.message });
   }
 };
-
 export const deleteInterview = async (req, res) => {
   try {
     const { id } = req.params;

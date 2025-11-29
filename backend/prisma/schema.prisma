@@ -3,44 +3,74 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-
-
 model Student {
-  id             String           @id @map("_id") @default(auto()) @db.ObjectId
-  name           String
-  email          String           @unique
-  passwordHash   String
-  branch         String?
-  year           Int?
-  cgpa           Float?
-  resumeUrl      String?
-  interestAreas  String[]
-  createdAt      DateTime         @default(now())
-  skills         StudentSkill[]
-  codingProfiles CodingProfile[]
-  applications   Application[]
-  notifications  Notification[]
+  id                     String                 @id @default(uuid())
+  name                   String
+  email                  String                 @unique
+  passwordHash           String
+  phone                  String?
+  location               String?
+  bio                    String?
+  branch                 String?
+  year                   Int?
+  cgpa                   Float?
+  resumeUrl              String?
+  portfolioUrl           String?
+  githubProfile          String?
+  linkedinProfile        String?
+  leetcodeProfile        String?
+  codeforcesProfile      String?
+  codechefProfile        String?
+  interestAreas          String[]
+  createdAt              DateTime?              @default(now())
+  updatedAt              DateTime?              @default(now()) @updatedAt
+  emailVerified          Boolean                @default(false)
+  emailVerificationToken String?
+  emailVerificationExpire DateTime?
+  resetPasswordToken     String?
+  resetPasswordExpire    DateTime?
+  lastLogin              DateTime?
+  skills                 StudentSkill[]
+  codingProfiles         CodingProfile[]
+  applications           Application[]
+  notifications          Notification[]
+  notificationPreference NotificationPreference?
+  calendarIntegration    CalendarIntegration?
 }
 
 model Recruiter {
-  id             String   @id @map("_id") @default(auto()) @db.ObjectId
-  name           String
-  email          String   @unique
-  passwordHash   String
-  companyName    String
-  companyWebsite String?
-  industry       String?
-  role           String?
-  logoUrl        String?
-  jobs           Job[]
+  id                     String    @id @default(uuid())
+  name                   String
+  email                  String    @unique
+  passwordHash           String
+  companyName            String
+  companyWebsite         String?
+  industry               String?
+  role                   String?
+  phone                  String?
+  bio                    String?
+  logoUrl                String?
+  verificationStatus     String?   @default("pending")
+  verificationDate       DateTime?
+  verifiedBy             String?   
+  verificationNotes      String?
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @default(now()) @updatedAt
+  emailVerified          Boolean   @default(false)
+  emailVerificationToken String?
+  emailVerificationExpire DateTime?
+  resetPasswordToken     String?
+  resetPasswordExpire    DateTime?
+  lastLogin              DateTime?
+  jobs                   Job[]
 }
 
 model Job {
-  id                  String        @id @map("_id") @default(auto()) @db.ObjectId
+  id                  String        @id @default(uuid())
   recruiter           Recruiter     @relation(fields: [recruiterId], references: [id])
   recruiterId         String
   title               String
@@ -50,42 +80,53 @@ model Job {
   salaryPackage       Float?
   applicationDeadline DateTime?
   status              String?       @default("open")
+  isRemote            Boolean       @default(false)
+  createdAt           DateTime?     @default(now())
+  updatedAt           DateTime?     @default(now()) @updatedAt
   applications        Application[]
   interviews          Interview[]   @relation("JobInterviews")
 }
 
 model Application {
-  id          String       @id @map("_id") @default(auto()) @db.ObjectId
+  id          String       @id @default(uuid())
   job         Job          @relation(fields: [jobId], references: [id])
   jobId       String
   student     Student      @relation(fields: [studentId], references: [id])
   studentId   String
   status      String       @default("applied")
   appliedAt   DateTime     @default(now())
+  createdAt   DateTime?    @default(now())
   interviews  Interview[]
 }
 
 model Interview {
-  id            String       @id @map("_id") @default(auto()) @db.ObjectId
-  application   Application  @relation(fields: [applicationId], references: [id])
-  applicationId String
-  job           Job          @relation("JobInterviews", fields: [jobId], references: [id])
-  jobId         String
-  interviewDate DateTime
-  mode          String?
-  locationOrLink String?
-  status        String?      @default("scheduled")
-  feedback      String?
+  id                String               @id @default(uuid())
+  application       Application          @relation(fields: [applicationId], references: [id])
+  applicationId     String
+  job               Job                  @relation("JobInterviews", fields: [jobId], references: [id])
+  jobId             String
+  interviewDate     DateTime
+  mode              String?
+  locationOrLink    String?
+  status            String?              @default("scheduled")
+  feedback          String?
+  calendarEventId   String?
+  meetingProvider   String?             
+  meetingId         String?
+  meetingPassword   String?
+  assignments       InterviewAssignment[]
+  testLinks         String[]
+  emailNotificationSent Boolean            @default(false)
 }
 
 model Skill {
-  id      String        @id @map("_id") @default(auto()) @db.ObjectId
+  id      String        @id @default(uuid())
   name    String
   students StudentSkill[]
 }
 
 model StudentSkill {
-  id        String   @id @map("_id") @default(auto()) @db.ObjectId
+  id        String   @id @default(uuid())
   student   Student  @relation(fields: [studentId], references: [id])
   studentId String
   skill     Skill    @relation(fields: [skillId], references: [id])
@@ -93,7 +134,7 @@ model StudentSkill {
 }
 
 model CodingProfile {
-  id             String   @id @map("_id") @default(auto()) @db.ObjectId
+  id             String   @id @default(uuid())
   student        Student  @relation(fields: [studentId], references: [id])
   studentId      String
   platformName   String
@@ -101,20 +142,109 @@ model CodingProfile {
   profileUrl     String?
   rating         Int?
   problemsSolved Int?
+
+  @@unique([studentId, platformName], name: "studentId_platformName")
+}
+
+model ResourceCategory {
+  id          String     @id @default(uuid())
+  name        String     @unique
+  description String?
+  resources   Resource[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @default(now()) @updatedAt
 }
 
 model Resource {
-  id     String  @id @map("_id") @default(auto()) @db.ObjectId
-  title  String
-  type   String
-  link   String
+  id          String           @id @default(uuid())
+  title       String
+  description String?
+  type        String          
+  format      String?         
+  link        String
+  thumbnailUrl String?
+  fileSize    Int?           
+  category    ResourceCategory @relation(fields: [categoryId], references: [id])
+  categoryId  String           
+  createdBy   String?           
+  accessLevel String           @default("public") 
+  tags        String[]
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @default(now()) @updatedAt
+  accesses    ResourceAccess[]
+}
+
+model ResourceAccess {
+  id         String   @id @default(uuid())
+  resource   Resource @relation(fields: [resourceId], references: [id])
+  resourceId String   
+  userId     String   
+  userType   String 
+  accessedAt DateTime @default(now())
+  
+  @@unique([resourceId, userId, userType], name: "resource_user_access")
 }
 
 model Notification {
-  id        String   @id @map("_id") @default(auto()) @db.ObjectId
+  id        String   @id @default(uuid())
   student   Student  @relation(fields: [studentId], references: [id])
   studentId String
   message   String
   isRead    Boolean  @default(false)
   createdAt DateTime @default(now())
+}
+
+model NotificationPreference {
+  id                    String   @id @default(uuid())
+  student               Student  @relation(fields: [studentId], references: [id])
+  studentId             String   @unique
+  email                 Boolean  @default(true)
+  applicationUpdates    Boolean  @default(true)
+  interviewReminders    Boolean  @default(true)
+  jobRecommendations    Boolean  @default(true)
+  platformAnnouncements Boolean  @default(true)
+  updatedAt             DateTime @default(now()) @updatedAt
+}
+
+model CalendarIntegration {
+  id           String   @id @default(uuid())
+  student      Student  @relation(fields: [studentId], references: [id])
+  studentId    String   @unique
+  accessToken  String
+  refreshToken String
+  expiryDate   DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now()) @updatedAt
+}
+
+model Admin {
+  id                     String    @id @default(uuid())
+  name                   String
+  email                  String    @unique
+  passwordHash           String
+  role                   String    @default("admin")
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @default(now()) @updatedAt
+  emailVerified          Boolean   @default(false)
+  emailVerificationToken String?
+  emailVerificationExpire DateTime?
+  resetPasswordToken     String?
+  resetPasswordExpire    DateTime?
+  lastLogin              DateTime?
+}
+
+model InterviewAssignment {
+  id             String    @id @default(uuid())
+  interview      Interview @relation(fields: [interviewId], references: [id])
+  interviewId    String
+  title          String
+  description    String?
+  fileUrl        String?
+  deadline       DateTime?
+  submissionUrl  String?
+  submissionDate DateTime?
+  status         String    @default("pending")
+  feedback       String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @default(now()) @updatedAt
 }

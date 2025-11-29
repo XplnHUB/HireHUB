@@ -5,17 +5,17 @@ import {
   getApplicationById,
   updateApplication,
   deleteApplication,
+  updateApplicationStatus
 } from "../controllers/applicationController.js";
 import { authenticate, authorizeRole } from "../utils/authMiddleware.js";
-
-
 const router = express.Router();
 
-router.post("/", createApplication);
+router.use(authenticate);
+
+router.post("/", authorizeRole("student"), createApplication);
 router.get("/", getAllApplications);
 router.get("/:id", getApplicationById);
 router.put("/:id", updateApplication);
+router.patch("/:id/status", updateApplicationStatus);
 router.delete("/:id", deleteApplication);
-router.post("/", authenticate, authorizeRole("student"), createApplication);
-
 export default router;

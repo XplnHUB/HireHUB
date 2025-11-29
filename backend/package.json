@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
+    "build": "npm install && npx prisma generate",
+    "postinstall": "npx prisma generate",
     "test": "echo \"No tests specified\" && exit 1"
   },
   "type": "module",
@@ -25,14 +27,32 @@
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^6.16.2",
+    "axios": "^1.13.0",
     "bcrypt": "^6.0.0",
+    "cheerio": "^1.1.2",
+    "cloudinary": "^1.41.3",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
     "express": "^4.21.2",
-    "jsonwebtoken": "^9.0.2"
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^8.2.0",
+    "express-validator": "^7.3.0",
+    "google-auth-library": "^10.4.2",
+    "googleapis": "^164.1.0",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "leetcode-query": "^2.0.1",
+    "mongodb": "^6.20.0",
+    "multer": "^2.0.2",
+    "multer-storage-cloudinary": "^4.0.0",
+    "nodemailer": "^7.0.10",
+    "xss-clean": "^0.1.4"
   },
   "devDependencies": {
     "nodemon": "^3.1.10",
     "prisma": "^6.16.2"
+  },
+  "engines": {
+    "node": ">=18 <23"
   }
 }

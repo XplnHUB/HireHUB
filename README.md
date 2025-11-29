@@ -1,99 +1,134 @@
 # HireHUB
 
-## Overview
-This Placement Portal is designed for college students and recruiters to streamline the placement process.  
-It enables **students** to create auto-generated profiles from resumes, track job applications, and prepare using resources.  
-It allows **recruiters** to post jobs, shortlist candidates, schedule interviews, and download analytics.  
+### The Smart Placement Portal for Students, Recruiters & Colleges
 
-The portal connects **students, recruiters, and administrators** in a single ecosystem.  
+---
+
+## Overview
+
+**HireHUB** is an intelligent placement management system that bridges the gap between **students**, **recruiters**, and **college administrators**.
+It simplifies the end-to-end placement process — from **resume parsing** and **job applications** to **interview scheduling** and **analytics** — all in one powerful platform.
+
+### Core Idea
+
+* **Students** can auto-generate profiles from resumes, apply to jobs, and track every step of their placement journey.
+* **Recruiters** can post jobs, shortlist candidates, schedule interviews, and analyze hiring data effortlessly.
+* **Admins** can oversee placement drives, verify companies, and ensure smooth collaboration between all stakeholders.
 
 ---
 
 ## Features
 
 ### Student Features
-- **Registration & Profile Creation**
-  - Sign up/login using email or SSO.
-  - Upload resume → Auto extract academics, skills, achievements.
-  - Integrations with external platforms:
-    - GitHub (repos, contributions, stars).
-    - LeetCode, Codeforces, CodeChef (ratings, problems solved).
-    - LinkedIn profile linking.
-- **Dashboard**
-  - Personalized job recommendations.
-  - Recent applied jobs & deadlines.
-  - Notifications for shortlists, interviews, results.
-- **Applications**
-  - Apply directly to listed jobs.
-  - Track application status (Applied → Shortlisted → Interview → Final Result).
-  - Download interview schedules.
-- **Resources**
-  - Prep materials, sample interview questions.
-  - Calendar sync for interview schedules.
-  - Notifications via email + in-app.
+
+* **Registration & Profile Setup**
+
+  * Email or SSO login (Google, GitHub, etc.)
+  * Upload resume → Auto extract academic details, skills, and achievements
+  * Integrations with:
+
+    * GitHub (repositories, stars, contributions)
+    * LeetCode, Codeforces, CodeChef (ratings, problems solved)
+    * LinkedIn profile linking
+* **Dashboard**
+
+  * Personalized job recommendations
+  * Track applied jobs, deadlines, and notifications
+  * Real-time updates for shortlists, interviews, and results
+* **Applications**
+
+  * Apply directly from the portal
+  * Track application status (Applied → Shortlisted → Interview → Result)
+  * Download interview schedules
+* **Resources**
+
+  * Access curated prep materials, mock questions, and interview guides
+  * Sync interview dates with Google Calendar
+  * Email and in-app notifications for reminders and updates
 
 ---
 
 ### Recruiter Features
-- **Registration & Profile Setup**
-  - Company verification via admin approval.
-  - Profile includes company logo, industry, website, offered roles.
-- **Job Posting & Management**
-  - Create job listings with eligibility, skills, package, deadline.
-  - Edit/archive job postings.
-- **Candidate Search & Filtering**
-  - Filter students by CGPA, branch, skills, coding profiles.
-  - Download resumes or bulk shortlist.
-  - AI-powered candidate recommendations.
-- **Application Tracking**
-  - View student applications for each job.
-  - Update status (Shortlist, Reject, Select).
-  - Export candidate data.
-- **Interview Management**
-  - Schedule interviews (Google Meet / Zoom).
-  - Notify candidates automatically.
-  - Upload tests/assignments.
-- **Reports & Insights**
-  - Applicant analytics dashboard.
-  - Selection ratios, skill heatmaps.
-  - Exportable reports.
+
+* **Profile & Verification**
+
+  * Company registration with admin verification
+  * Add company logo, description, website, and offered roles
+* **Job Management**
+
+  * Post jobs with eligibility, skillsets, salary, and deadlines
+  * Edit or archive previous postings
+* **Candidate Search**
+
+  * Filter by branch, CGPA, skills, and coding handles
+  * Bulk shortlist or download resumes
+  * AI-powered candidate recommendations
+* **Application Tracking**
+
+  * Monitor applications by job
+  * Update candidate statuses (Shortlisted, Rejected, Selected)
+  * Export reports for analysis
+* **Interview Management**
+
+  * Schedule interviews via Google Meet or Zoom
+  * Send automatic notifications to candidates
+  * Upload test links or assignments
+* **Reports & Analytics**
+
+  * View dashboards for applications and selections
+  * Visualize skill distributions and hiring ratios
+  * Export analytics reports for HR teams
 
 ---
 
-## Example Student Flow
+## Example Workflows
 
-1. Student visits portal → Registers/Login  
-2. Uploads Resume → Auto profile created  
-3. Dashboard shows personalized job recommendations  
-4. Student applies to jobs → Status tracked in dashboard  
-5. Shortlisted → Interview scheduled → Final result shown  
-6. Student uses resources for preparation along the way  
+### Student Flow
 
----
+1. Register or login to the portal
+2. Upload resume → Profile auto-generated
+3. Dashboard shows personalized job matches
+4. Apply to jobs and track status in real-time
+5. Get shortlisted → Attend interviews → View results
+6. Use resources for preparation and skill improvement
 
-## Example Recruiter Flow
+### Recruiter Flow
 
-1. Recruiter visits portal → Registers/Login  
-2. Company profile verified by admin  
-3. Recruiter posts a job with eligibility details  
-4. Students apply → Recruiter views candidate list  
-5. Recruiter shortlists candidates → Schedules interviews  
-6. Interview results updated → Students notified  
-7. Recruiter downloads analytics/reports for hiring process  
-
----
-
-## Tech Notes (Future Scope)
-- **Resume Parsing**: NLP/AI-based extraction (e.g., Pyresparser, OpenAI API).  
-- **API Integrations**:
-  - GitHub, LeetCode, Codeforces, CodeChef APIs.  
-- **Notifications System**: Email (SMTP) + In-app push.  
-- **Blockchain Verification**: Secure offer letters & certifications.  
-- **AI Matching**: Rank students based on job description fit.  
+1. Register company account → Await admin verification
+2. Post job openings with details and eligibility
+3. Review student applications and filter by criteria
+4. Shortlist and schedule interviews seamlessly
+5. Update results → Students notified automatically
+6. Export analytics for performance tracking
 
 ---
 
-# DATABASE SCHEMA
+## Tech Stack
+
+| Layer                       | Technologies                           |
+| --------------------------- | -------------------------------------- |
+| **Frontend**                | Next.js, React, Tailwind CSS           |
+| **Backend**                 | Node.js, Express.js                    |
+| **Database**                | MongoDB or PostgreSQL                  |
+| **Authentication**          | NextAuth, JWT, OAuth (Google, GitHub)  |
+| **Resume Parsing (Future)** | Pyresparser, OpenAI API                |
+| **APIs**                    | GitHub, LeetCode, Codeforces, CodeChef |
+| **Notifications**           | SMTP (Email) + In-app                  |
+| **Deployment**              | Render, Vercel, Docker                 |
+
+---
+
+## Future Scope
+
+* **AI Resume Parsing:** Extract key details using NLP.
+* **Smart Job Matching:** Rank students by skill-job fit using AI.
+* **Blockchain Verification:** Issue verified digital offer letters and certificates.
+* **Advanced Notification System:** Real-time in-app and email alerts.
+* **Placement Analytics Dashboard:** Deep insights for colleges and companies.
+
+---
+
+## Database Schema
 
 ```mermaid
 erDiagram
@@ -169,3 +204,42 @@ erDiagram
     RECRUITER ||--o{ JOB : posts
     APPLICATION ||--o{ INTERVIEW : schedules
     STUDENT ||--o{ NOTIFICATION : receives
+```
+
+---
+
+## Contributing
+
+We welcome contributions from developers and designers.
+To contribute:
+
+1. Fork the repository
+2. Create a new branch (`feature/new-feature`)
+3. Commit your changes
+4. Push the branch
+5. Open a pull request
+
+---
+# Work Planned 
+
+- Database : Suraj Kulkarni
+- Backend Student Routes : Ansh Sharma 
+- Backend Company Routes : Sunny Singh
+- User Auth : Arpit Sarang
+
+---
+# Job Done
+- Basic Structure Ready
+- Database Planned properly
+- Working on Routes
+- Auth routes on progress
+---
+
+## License
+
+This project is licensed under the **MIT License** — you can freely use, modify, and distribute it.
+
+---
+
+## Credits
+

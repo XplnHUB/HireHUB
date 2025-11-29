@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
-
 export const createNotification = async (req, res) => {
   try {
     const { studentId, message, isRead } = req.body;
@@ -13,12 +12,12 @@ export const createNotification = async (req, res) => {
     res.status(500).json({ message: "Failed to send notification", error: error.message });
   }
 };
-
-export const getNotificationsByStudent = async (req, res) => {
+export const getNotifications = async (req, res) => {
   try {
-    const { studentId } = req.params;
+    const studentId = req.user.id;
     const notifications = await prisma.notification.findMany({
       where: { studentId },
+      orderBy: { createdAt: 'desc' }
     });
     res.json(notifications);
   } catch (error) {
@@ -38,5 +37,19 @@ export const markNotificationAsRead = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Failed to update notification", error: error.message });
+  }
+};
+
+export const markAllAsRead = async (req, res) => {
+  try {
+    const studentId = req.user.id;
+    await prisma.notification.updateMany({
+      where: { studentId, isRead: false },
+      data: { isRead: true },
+    });
+    res.json({ message: "All notifications marked as read" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to mark all as read", error: error.message });
   }
 };
