@@ -7,7 +7,6 @@ const SALT_ROUNDS = 10;
 async function main() {
   console.log("Starting seed...");
 
-  // Clean up existing data
   await prisma.interview.deleteMany();
   await prisma.application.deleteMany();
   await prisma.notification.deleteMany();

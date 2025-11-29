@@ -220,20 +220,6 @@ To contribute:
 5. Open a pull request
 
 ---
-# Work Planned 
-
-- Database : Suraj Kulkarni
-- Backend Student Routes : Ansh Sharma 
-- Backend Company Routes : Sunny Singh
-- User Auth : Arpit Sarang
-
----
-# Job Done
-- Basic Structure Ready
-- Database Planned properly
-- Working on Routes
-- Auth routes on progress
----
 
 ## License
 
@@ -242,4 +228,10 @@ This project is licensed under the **MIT License** — you can freely use, modif
 ---
 
 ## Credits
+- Ansh Sharma 
 
+
+
+BACKEND URL : https://hirehub-backend-js0m.onrender.com
+
+FRONTEND URL : https://hirehub-tau.vercel.app/
