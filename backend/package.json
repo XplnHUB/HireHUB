@@ -42,7 +42,7 @@
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
     "leetcode-query": "^2.0.1",
-    "mongodb": "^6.20.0",
+    "mongodb": "^6.21.0",
     "multer": "^2.0.2",
     "multer-storage-cloudinary": "^4.0.0",
     "nodemailer": "^7.0.10",
