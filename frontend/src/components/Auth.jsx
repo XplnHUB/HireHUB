@@ -122,6 +122,33 @@ const Auth = () => {
                         </button>
                     </div>
 
+                    {isLogin && (
+                        <div className="mb-6 grid grid-cols-2 gap-4">
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    setRole('student');
+                                    setFormData({ ...formData, email: 'demo.student@example.com', password: 'student123' });
+                                }}
+                                className="text-xs py-2 px-3 rounded-lg border border-dashed border-primary/50 text-primary hover:bg-primary/5 transition-colors flex items-center justify-center gap-1"
+                            >
+                                <User size={14} />
+                                Demo Student
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    setRole('recruiter');
+                                    setFormData({ ...formData, email: 'demo.recruiter@example.com', password: 'recruiter123' });
+                                }}
+                                className="text-xs py-2 px-3 rounded-lg border border-dashed border-secondary/50 text-secondary hover:bg-secondary/5 transition-colors flex items-center justify-center gap-1"
+                            >
+                                <Briefcase size={14} />
+                                Demo Recruiter
+                            </button>
+                        </div>
+                    )}
+
                     <form onSubmit={handleSubmit} className="space-y-4">
                         {!isLogin && (
                             <div className="relative">
