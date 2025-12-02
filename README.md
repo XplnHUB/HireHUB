@@ -227,8 +227,10 @@ This project is licensed under the **MIT License** — you can freely use, modif
 
 ---
 
-## Credits
-- Ansh Sharma 
+# Contribution by each people
+
+![WhatsApp Image 2025-11-29 at 09 41 52](https://github.com/user-attachments/assets/5702e249-eb3f-4da5-8b6b-543a4e5f866f)
+
 
 
 
