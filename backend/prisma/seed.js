@@ -42,6 +42,15 @@ async function main() {
   // --- Create 5 Students ---
   const studentsData = [
     {
+      name: "Demo Student",
+      email: "demo.student@example.com",
+      branch: "Computer Science",
+      year: 4,
+      cgpa: 9.0,
+      interestAreas: ["Full Stack", "AI"],
+      skills: [0, 1, 2, 4, 7]
+    },
+    {
       name: "Arjun Mehta",
       email: "arjun.mehta@nsut.ac.in",
       branch: "Computer Science",
@@ -117,6 +126,13 @@ async function main() {
 
   // --- Create 5 Recruiters ---
   const recruitersData = [
+    {
+      name: "Demo Recruiter",
+      email: "demo.recruiter@example.com",
+      companyName: "Demo Corp",
+      industry: "Technology",
+      role: "Senior Recruiter"
+    },
     {
       name: "Rahul Verma",
       email: "rahul.verma@infotech.in",
